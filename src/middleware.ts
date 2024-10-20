@@ -11,12 +11,12 @@ export function middleware(request: NextRequest) {
     USER: [/^\/profile/],
     ADMIN: [/^\/admin/],
   };
-  const user = {
-    name: "sahad",
-    email: "aksahad234567@gmail.com",
-    role: "USER",
-  };
-  // const user = undefined;
+  // const user = {
+  //   name: "sahad",
+  //   email: "aksahad234567@gmail.com",
+  //   role: "USER",
+  // };
+  const user = undefined;
   if (!user) {
     if (AuthRouter.includes(pathname)) {
       return NextResponse.next();
