@@ -1,6 +1,7 @@
 import React from "react";
-import { Providers } from "../providers";
+
 import { Navbar } from "@/src/components/navbar";
+import { Providers } from "@/src/lib/Providers";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (

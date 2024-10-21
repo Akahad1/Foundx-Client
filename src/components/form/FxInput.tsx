@@ -1,3 +1,4 @@
+"use client";
 import { Input } from "@nextui-org/input";
 import React from "react";
 import { useFormContext } from "react-hook-form";
@@ -7,7 +8,7 @@ type inputtype = {
   required?: boolean;
   label: string;
   name: string;
-  type: string;
+  type?: string;
 };
 
 const FxInput = ({
@@ -18,11 +19,17 @@ const FxInput = ({
   type = "text",
   name,
 }: inputtype) => {
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+  console.log(errors);
   return (
     <Input
       {...register(name)}
       variant={variant}
+      errorMessage={errors[name] ? (errors[name].message as string) : ""}
+      isInvalid={!!errors[name]}
       size={size}
       required={required}
       label={label}
