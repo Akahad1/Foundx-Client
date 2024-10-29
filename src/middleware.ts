@@ -1,8 +1,8 @@
-import { ResolvedBaseUrl } from "next/dist/build/load-jsconfig";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { currentUser } from "./Services/AuthService";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const AuthRouter = ["/login", "/singup"];
   const { pathname } = request.nextUrl;
   console.log(pathname);
@@ -11,12 +11,14 @@ export function middleware(request: NextRequest) {
     USER: [/^\/profile/],
     ADMIN: [/^\/admin/],
   };
-  // const user = {
-  //   name: "sahad",
-  //   email: "aksahad234567@gmail.com",
-  //   role: "USER",
-  // };
-  const user = undefined;
+  const user = {
+    name: "sahad",
+    email: "aksahad234567@gmail.com",
+    role: "USER",
+  };
+  const token = await currentUser();
+  console.log("userToken", token);
+
   if (!user) {
     if (AuthRouter.includes(pathname)) {
       return NextResponse.next();

@@ -8,6 +8,7 @@ import { Button } from "@nextui-org/button";
 import Link from "next/link";
 import { useEffect } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import Loading from "../../loading";
 
 export default function RegisterPage() {
   const { mutate: handleUserRegistration, isPending } = useUserRegistration();
@@ -28,7 +29,7 @@ export default function RegisterPage() {
   };
 
   if (isPending) {
-    //  handle loading state
+    return <Loading></Loading>;
   }
 
   return (
