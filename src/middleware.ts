@@ -11,19 +11,16 @@ export async function middleware(request: NextRequest) {
     USER: [/^\/profile/],
     ADMIN: [/^\/admin/],
   };
-  const user = {
-    name: "sahad",
-    email: "aksahad234567@gmail.com",
-    role: "USER",
-  };
-  const token = await currentUser();
-  console.log("userToken", token);
+
+  const user = await currentUser();
 
   if (!user) {
     if (AuthRouter.includes(pathname)) {
       return NextResponse.next();
     } else {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(
+        new URL(`/login?redirect=${pathname}`, request.url)
+      );
     }
   }
 
@@ -38,5 +35,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/about", "/profile", "/login"],
+  matcher: ["/about", "/profile", "/profile/:page*", "/login"],
 };

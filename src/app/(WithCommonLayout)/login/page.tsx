@@ -11,14 +11,26 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import loginvalidation from "@/src/shcma/login.shcma";
 import { useUserLogin } from "@/src/hooks/auth.hook";
 import Loading from "../../loading";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const LoginPage = () => {
-  const { mutate: handleUserLogIn, isPending } = useUserLogin();
+  const { mutate: handleUserLogIn, isPending, isSuccess } = useUserLogin();
+  const route = useRouter();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
     handleUserLogIn(data);
   };
 
+  const searchParam = useSearchParams();
+  const pathname = searchParam.get("redirect");
+  console.log(pathname);
+  if (!isPending && isSuccess) {
+    if (pathname) {
+      route.push(pathname);
+    } else {
+      route.push("/");
+    }
+  }
   return (
     <>
       {isPending && <Loading></Loading>}
