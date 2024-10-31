@@ -12,13 +12,16 @@ import loginvalidation from "@/src/shcma/login.shcma";
 import { useUserLogin } from "@/src/hooks/auth.hook";
 import Loading from "../../loading";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useUser } from "@/src/context/user.provider";
 
 const LoginPage = () => {
   const { mutate: handleUserLogIn, isPending, isSuccess } = useUserLogin();
   const route = useRouter();
+  const { setIsLoading } = useUser();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
     handleUserLogIn(data);
+    setIsLoading(true);
   };
 
   const searchParam = useSearchParams();

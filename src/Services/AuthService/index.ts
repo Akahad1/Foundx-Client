@@ -42,6 +42,7 @@ export const currentUser = async () => {
       mobileNumber: decodedToken.mobileNumber,
       role: decodedToken.role,
       status: decodedToken.status,
+      profilePhoto: decodedToken.profilePhoto,
     };
   }
   return decodedToken;

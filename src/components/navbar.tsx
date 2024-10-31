@@ -27,8 +27,14 @@ import {
   Logo,
 } from "@/src/components/icons";
 import { logOut } from "../Services/AuthService";
+import { useUser } from "../context/user.provider";
 
 export const Navbar = () => {
+  const { user, setIsLoading } = useUser();
+  const handleLogOut = () => {
+    logOut();
+    setIsLoading(true);
+  };
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -65,10 +71,19 @@ export const Navbar = () => {
             linkStyles({ color: "foreground" }),
             "data-[active=true]:text-primary data-[active=true]:font-medium justify-end"
           )}
-          onClick={() => logOut()}
+          onClick={() => handleLogOut()}
         >
           Log Out
         </Button>
+        <Button
+          className={clsx(
+            linkStyles({ color: "foreground" }),
+            "data-[active=true]:text-primary data-[active=true]:font-medium justify-end"
+          )}
+        >
+          {user?.email}
+        </Button>
+        {/* <p></p> */}
       </NavbarContent>
       <NavbarContent
         className="hidden sm:flex basis-1/5 sm:basis-full"
