@@ -31,9 +31,9 @@ import { useUser } from "../context/user.provider";
 import { potectRoutes } from "../constent";
 import { usePathname, useRouter } from "next/navigation";
 
-const pathname = usePathname();
-const router = useRouter();
 export const Navbar = () => {
+  const pathname = usePathname();
+  const router = useRouter();
   const { user, setIsLoading } = useUser();
   const handleLogOut = () => {
     logOut();

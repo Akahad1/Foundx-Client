@@ -45,3 +45,12 @@ export interface IUser {
   updatedAt?: string;
   __v?: number;
 }
+
+export interface IInput {
+  variant?: "flat" | "bordered" | "faded" | "underlined";
+  size?: "sm" | "md" | "lg";
+  required?: boolean;
+  label: string;
+  name: string;
+  type?: string;
+}
