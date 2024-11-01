@@ -28,12 +28,19 @@ import {
 } from "@/src/components/icons";
 import { logOut } from "../Services/AuthService";
 import { useUser } from "../context/user.provider";
+import { potectRoutes } from "../constent";
+import { usePathname, useRouter } from "next/navigation";
 
+const pathname = usePathname();
+const router = useRouter();
 export const Navbar = () => {
   const { user, setIsLoading } = useUser();
   const handleLogOut = () => {
     logOut();
     setIsLoading(true);
+    if (potectRoutes.some((route) => pathname.match(route))) {
+      router.push("/");
+    }
   };
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
