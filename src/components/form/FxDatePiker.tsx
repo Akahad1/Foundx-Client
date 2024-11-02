@@ -8,6 +8,7 @@ export default function FXDatePicker({ label, name }: IProps) {
     <Controller
       name={name}
       render={({ field: { value, ...fields } }) => (
+        
         <DatePicker label={label} className="max-w-[284px]" {...fields} />
       )}
     ></Controller>

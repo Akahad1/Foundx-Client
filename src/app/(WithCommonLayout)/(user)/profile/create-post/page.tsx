@@ -2,6 +2,8 @@
 
 import FXDatePicker from "@/src/components/form/FxDatePiker";
 import FxInput from "@/src/components/form/FxInput";
+import FXSelector from "@/src/components/form/FXSelector";
+import { DateToIso } from "@/src/utils/dateToISO";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/divider";
 import React from "react";
@@ -13,17 +15,30 @@ import {
   useForm,
 } from "react-hook-form";
 
+import { allDistict } from "@bangladeshi/bangladesh-address";
+import { useGetCatagoris } from "@/src/hooks/catagoris.hook";
+
 const page = () => {
+  const { data: CategoryData, isSuccess } = useGetCatagoris();
+  console.log(CategoryData);
   const methods = useForm();
   const { control, handleSubmit } = methods;
   const { fields, append, remove } = useFieldArray({
     control,
     name: "questions",
   });
+
+  const cityOptions = allDistict()
+    .sort()
+    .map((city: string) => ({
+      key: city,
+      label: city,
+    }));
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const postData = {
       ...data,
       questions: data.questions.map((que: { value: string }) => que.value),
+      dateFound: DateToIso(data.dateFound),
     };
     console.log(postData);
   };
@@ -49,7 +64,7 @@ const page = () => {
               <FxInput label="Location" name="location" />
             </div>
             <div className="min-w-fit flex-1">
-              {/* <FXSelect label="City" name="city" options={cityOptions} /> */}
+              <FXSelector label="City" name="city" options={cityOptions} />
             </div>
           </div>
           <div className="flex flex-wrap gap-2 py-2">
