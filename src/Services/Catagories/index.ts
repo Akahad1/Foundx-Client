@@ -1,3 +1,4 @@
+"use server";
 import AxiosInstance from "@/src/lib/AuthInstanse";
 
 export const getCatagoris = async () => {

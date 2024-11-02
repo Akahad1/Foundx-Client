@@ -8,13 +8,18 @@ interface IProps extends IInput {
     label: string;
   }[];
 }
-const FXSelector = ({ options, name, label }: IProps) => {
+const FXSelector = ({ options, name, label, disabled }: IProps) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
   return (
-    <Select {...register(name)} label={label} className="max-w-xs">
+    <Select
+      {...register(name)}
+      label={label}
+      isDisabled={disabled}
+      className="max-w-xs"
+    >
       {options.map((option) => (
         <SelectItem key={option.key}>{option.label}</SelectItem>
       ))}
